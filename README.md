@@ -75,4 +75,13 @@ Tips:解決辦法
 
 2.白名單 / 僅允許指定 token：在 swap 中強制 require(from == token1 || from == token2) 並同理檢查 to
 
+所以最好可以加上：
+
+    require(
+        (from == token1 && to == token2) ||
+        (from == token2 && to == token1),
+        "Invalid tokens: only token1 <-> token2 allowed"
+    );
+
+
 3.不要在同一合約中用 approve(this) 並立即 transferFrom 的怪異流程：追求最小權限原則與明確授權流程
